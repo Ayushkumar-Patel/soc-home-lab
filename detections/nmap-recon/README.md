@@ -126,7 +126,3 @@ Mapping more than one technique here (rather than just T1046) reflects that a si
 command actually performs several distinct reconnaissance behaviors — this is worth calling
 out explicitly in interviews.
 
-## Remediation / hardening notes
-<!-- EDIT optional: e.g. restrict scanning source with host-based firewall (ufw), disable the
-     HTTP Server header to reduce fingerprinting, add a Suricata rule to alert on the default
-     Nmap NSE User-Agent specifically if the ET ruleset doesn't already cover it -->
