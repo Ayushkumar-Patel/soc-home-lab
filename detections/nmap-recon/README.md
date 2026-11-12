@@ -99,26 +99,6 @@ grep '"event_type":"http"' /var/log/suricata/eve.json | tail -n 5
 
 <!-- EDIT: paste the actual Wazuh rule ID/level/description from alerts.json -->
 
-## Findings
-
-<!-- EDIT with real numbers once run, for example:
-- Port sweep: N SYN packets to 65,535 ports in X seconds from 192.168.152.20; only ports 22 and
-  80 responded SYN/ACK, all others RST/ACK — confirms only two services exposed on .40
-- HTTP probe: 1 GET request captured with User-Agent "<value>", server responded
-  "Server: Apache/2.4.52 (Ubuntu)", matching Nmap's reported service version
-- DNS: 0 packets captured — confirms scan was IP-based with no reverse-DNS dependency
-- Suricata: N alerts fired for the port sweep (signature <id>), N for the HTTP probe
-  (signature <id>); [default SYN scan was / was not flagged — note which]
-- Wazuh: rule <id>, level <N>, correlated with the same Suricata alerts
--->
-1.Identified two exposed services on the target Ubuntu server (192.168.152.40): SSH (Port 22) and Apache HTTP (Port 80).
-2.Observed TCP SYN scanning activity originating from Kali Linux (192.168.152.20), indicating systematic network reconnaissance.
-3.Analyzed TCP connection patterns, open/closed port responses, and HTTP service fingerprinting using Wireshark (Filters A1/A2 and B above).
-4.Identified Nmap-generated HTTP requests used to determine Apache service information.
-5.Confirmed no reverse-DNS activity was generated during the scan (Filter C), consistent with an IP-based scan against a DNS-less isolated network.
-6.Evaluated Suricata and Wazuh integration for network intrusion detection and security event monitoring.
-7.Identified potential attack surfaces and recommended restricting SSH access, updating exposed services, and monitoring suspicious connection attempts (see Remediation / hardening notes).
-
 ## MITRE ATT&CK
 
 | Technique | ID | How it applies |
