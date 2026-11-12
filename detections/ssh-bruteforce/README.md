@@ -73,16 +73,17 @@ one.
      correlation window) -->
 
 ## Findings
-<!-- EDIT with real numbers, for example:
-- N failed login attempts in M minutes from 192.168.152.20, confirmed in both auth.log and
-  the Wireshark session count
-- Splunk alert triggered at HH:MM:SS, N matching events
-- Suricata: no dedicated brute-force signature fired (expected with default ruleset); SSH
-  session metadata logged to eve.json for every attempt
-- Wazuh rule <ID>, level <N>, fired after N failures within the correlation window
-- [Successful / no successful] authentication observed
--->
-_To be completed after running the attack._
+
+- Simulated an SSH brute-force attack using Hydra from Kali Linux (`192.168.152.20`) against the Ubuntu SSH server (`192.168.152.40`), targeting the `labtest` account.
+- Analyzed SSH traffic in Wireshark, using repeated TCP connection patterns, SSH key-exchange activity and connection termination as indicators of repeated authentication attempts. SSH payloads are encrypted, so credentials are not visible in the packet capture.
+- Reviewed Linux authentication logs to identify failed SSH logins and correlate the events with the attacker's source IP address.
+- Used the Splunk search in [`../../splunk/ssh-bruteforce.spl`](../../splunk/ssh-bruteforce.spl) to investigate and monitor repeated SSH authentication failures.
+- Evaluated Suricata SSH session telemetry in `eve.json`. A dedicated brute-force alert is not guaranteed with the default ruleset; SSH session metadata can still provide supporting evidence.
+- Assessed Wazuh's ability to correlate repeated SSH authentication failures and raise security alerts.
+- Mapped the password-guessing activity to MITRE ATT&CK **T1110.001 – Password Guessing**.
+- Identified hardening measures including SSH key-based authentication, limiting connection attempts, Fail2ban and additional detection rules.
+
+**Validation note:** Add the actual attempt count, test duration, Splunk result/alert, Suricata alert status, Wazuh rule ID and level, and whether authentication succeeded after reviewing the captured evidence. These values are not included in the current lab notes and should not be reported as confirmed until verified.
 
 ## MITRE ATT&CK
 
