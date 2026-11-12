@@ -99,20 +99,6 @@ grep '"event_type":"http"' /var/log/suricata/eve.json | tail -n 5
 
 <!-- EDIT: paste the actual Wazuh rule ID/level/description from alerts.json -->
 
-## Findings
-
-<!-- EDIT with real numbers once run, for example:
-- Port sweep: N SYN packets to 65,535 ports in X seconds from 192.168.152.20; only ports 22 and
-  80 responded SYN/ACK, all others RST/ACK — confirms only two services exposed on .40
-- HTTP probe: 1 GET request captured with User-Agent "<value>", server responded
-  "Server: Apache/2.4.52 (Ubuntu)", matching Nmap's reported service version
-- DNS: 0 packets captured — confirms scan was IP-based with no reverse-DNS dependency
-- Suricata: N alerts fired for the port sweep (signature <id>), N for the HTTP probe
-  (signature <id>); [default SYN scan was / was not flagged — note which]
-- Wazuh: rule <id>, level <N>, correlated with the same Suricata alerts
--->
-_To be completed after running the scan._
-
 ## MITRE ATT&CK
 
 | Technique | ID | How it applies |
@@ -126,7 +112,3 @@ Mapping more than one technique here (rather than just T1046) reflects that a si
 command actually performs several distinct reconnaissance behaviors — this is worth calling
 out explicitly in interviews.
 
-## Remediation / hardening notes
-<!-- EDIT optional: e.g. restrict scanning source with host-based firewall (ufw), disable the
-     HTTP Server header to reduce fingerprinting, add a Suricata rule to alert on the default
-     Nmap NSE User-Agent specifically if the ET ruleset doesn't already cover it -->
