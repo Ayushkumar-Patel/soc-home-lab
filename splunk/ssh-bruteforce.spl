@@ -1,0 +1,5 @@
+index=linux "Failed password"
+| rex "Failed password for (invalid user )?(?<user>\S+) from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| bin _time span=5m
+| stats count by _time, src_ip, user
+| where count > 10
