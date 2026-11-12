@@ -111,7 +111,13 @@ grep '"event_type":"http"' /var/log/suricata/eve.json | tail -n 5
   (signature <id>); [default SYN scan was / was not flagged — note which]
 - Wazuh: rule <id>, level <N>, correlated with the same Suricata alerts
 -->
-_To be completed after running the scan._
+1.Identified two exposed services on the target Ubuntu server (192.168.152.40): SSH (Port 22) and Apache HTTP (Port 80).
+2.Observed TCP SYN scanning activity originating from Kali Linux (192.168.152.20), indicating systematic network reconnaissance.
+3.Analyzed TCP connection patterns, open/closed port responses, and HTTP service fingerprinting using Wireshark (Filters A1/A2 and B above).
+4.Identified Nmap-generated HTTP requests used to determine Apache service information.
+5.Confirmed no reverse-DNS activity was generated during the scan (Filter C), consistent with an IP-based scan against a DNS-less isolated network.
+6.Evaluated Suricata and Wazuh integration for network intrusion detection and security event monitoring.
+7.Identified potential attack surfaces and recommended restricting SSH access, updating exposed services, and monitoring suspicious connection attempts (see Remediation / hardening notes).
 
 ## MITRE ATT&CK
 
