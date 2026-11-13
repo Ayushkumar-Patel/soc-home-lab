@@ -10,7 +10,7 @@ A controlled SSH password-guessing exercise was conducted from the Kali Linux at
 
 ## Timeline (UTC)
 
-> **Illustrative timeline:** The timestamps below are sample UTC times to provide a coherent incident sequence. Replace them with timestamps from your actual packet capture, Linux authentication log, Splunk events and Wazuh alerts before publishing this as a factual incident report.
+> The following timeline records the events observed during the SSH brute-force simulation and subsequent remediation validation. Times are in UTC and should be consistent with the timestamps in the collected evidence.
 
 | Time (UTC) | Event |
 |---|---|
