@@ -6,8 +6,7 @@ Central log collection and correlation point. Receives forwarded logs from `Serv
 search used by `detections/ssh-bruteforce/README.md`.
 
 ## Install
-<!-- EDIT: Splunk Enterprise version installed, install method (e.g. .deb package),
-     any sizing/license notes (free trial / Dev license, etc.) -->
+<!-- EDIT: Splunk Enterprise version installed, install method (e.g. .deb package) -->
 
 ## Data inputs
 
@@ -24,11 +23,7 @@ sudo netstat -tnp | grep :9997
 # On Server-VM:
 sudo /opt/splunkforwarder/bin/splunk list forward-server
 ```
-<!-- EDIT: confirm connected, note any config changes made to inputs.conf / outputs.conf -->
-
-## Index configuration
-<!-- EDIT: index names created (e.g. "linux", "windows"), retention settings if changed from
-     default, any `props.conf` / sourcetype customization -->
+<!-- EDIT: confirm connected -->
 
 ## Searches and alerts
 
@@ -46,28 +41,22 @@ index=linux "Failed password"
   likely brute-force.
 - **Threshold rationale:** 10 failures / 5 minutes distinguishes automated guessing (Hydra
   running multiple threads) from a user mistyping their password a couple of times.
-- **Saved as alert:** <!-- EDIT: alert name, schedule (e.g. every 5 min), trigger action
-  (e.g. email, add to triggered alerts list) -->
+- **Saved as alert:** <!-- EDIT: alert name, schedule, trigger action -->
 - **Result when run against real attack data:** <!-- EDIT: paste the result table —
   _time, src_ip, user, count columns -->
 
-### Planned / possible additional searches
-<!-- EDIT optional, only if you build these:
-- Failed-then-succeeded pattern (brute-force followed by a valid login) for impact assessment
-- Sysmon process-creation search cross-referenced with the ssh-bruteforce timeframe
--->
-
-## Dashboards
-<!-- EDIT: if you built a Splunk dashboard (Simple XML), name it and describe panels,
-     e.g. "SSH Failed Logins Over Time" line chart + "Top Source IPs" table -->
-
-## Status
-<!-- EDIT: Not started / Forwarders configured / Search tested / Alert triggered on live attack -->
-_Not started._
-
 ## Troubleshooting notes
-<!-- EDIT: anything you had to fix — e.g. forwarder not connecting, wrong index name in
-     search, timestamp parsing issues on auth.log, firewall blocking port 9997 -->
+
+- No events in `index=linux`? Check the forwarder is listed under `netstat -tnp | grep :9997`
+  on SIEM-VM first — a broken forwarder is the most common cause of an empty search.
+- Search returns 0 results but events exist? Confirm the sourcetype matches what's actually
+  being indexed: `index=linux | stats count by sourcetype`.
+- Timestamps look wrong/out of order? Check `auth.log`'s year isn't being misparsed — add
+  `TIME_FORMAT` to `props.conf` for the sourcetype if needed.
+- Alert never fires? Lower the threshold temporarily (`count > 2`) to confirm the search
+  logic works, then raise it back to 10 once confirmed.
+
+<!-- EDIT: replace/add with the real issues you actually hit -->
 
 ## Files in this folder
 - `README.md` — this file
