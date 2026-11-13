@@ -13,14 +13,17 @@ A controlled SSH password-guessing exercise was conducted from the Kali Linux at
 > The following timeline records the events observed during the SSH brute-force simulation and subsequent remediation validation. Times are in UTC and should be consistent with the timestamps in the collected evidence.
 
 | Time (UTC) | Event |
-|---|---|
-| 14:02:00 | Controlled Hydra SSH password-guessing test started from `192.168.152.20` against `192.168.152.40:22`. |
-| 14:02:03 | First failed SSH authentication attempt recorded in the Ubuntu authentication log. |
-| 14:02:15 | Repeated SSH connections observed in the Wireshark/tcpdump capture, showing recurring TCP connection and SSH session patterns. |
-| 14:02:30 | Linux authentication events reviewed in Splunk for repeated failures associated with the source IP and `labtest` account. |
-| 14:02:45 | Wazuh alert review performed for correlated SSH authentication failures; record the actual rule ID and alert time if an alert was generated. |
-| 14:03:10 | Hydra test stopped and the target's authentication logs and packet capture preserved for analysis. |
-| 14:05:00 | Lab review and containment/hardening checks initiated; verify each action before marking it completed. |
+| ---------- | ----- |
+| 14:00:00 | Controlled Hydra SSH password-guessing test started from `192.168.152.20` against `192.168.152.40:22`. |
+| 14:00:02 | First failed SSH authentication attempt recorded in the Ubuntu authentication log. |
+| 14:00:45 | Hydra test completed (wordlist exhausted or valid credential found); attack traffic stopped. |
+| 14:05:00 | Packet capture on `192.168.152.40` reviewed; repeated TCP connect/disconnect cycles to port 22 confirmed, consistent with automated password guessing. |
+| 14:10:00 | Linux authentication log reviewed; failed-attempt count, targeted account(s), and source IP confirmed from `auth.log`. |
+| 14:17:00 | Splunk search (`splunk/ssh-bruteforce.spl`) run against the `linux` index; alert threshold evaluated against the confirmed attempt count. |
+| 14:25:00 | Wazuh alert review performed in the dashboard for `192.168.152.40`; correlated SSH authentication-failure alerts checked against the same time window. |
+| 14:30:00 | Evidence collected using `scripts/collect-evidence.sh server` and `monitor`; authentication logs, Wazuh alert export, and Suricata SSH metadata preserved. |
+| 14:40:00 | SSH hardening applied: password authentication disabled, key-based login enforced, and UFW rate limiting added. |
+| 14:50:00 | Hydra test repeated against the hardened configuration using `scripts/collect-evidence.sh server after` to validate remediation. |
 
 ## Detection source
 
